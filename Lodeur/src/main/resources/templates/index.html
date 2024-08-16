@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<style>
+.custom-text {
+    color: #000000;
+    margin-top: 7px;
+    margin-left: 4px;
+}
+
+</style>
+
+<title>메인 페이지</title>
+</head>
+<body class="index">
+	<!-- 네비게이션 바 불러오기 -->
+	<header>
+		<div th:insert="~{navbar.html}"></div>
+	</header>
+
+	<main>
+		<nav
+			class="navbar navbar-expand-lg navbar-light bg-light bottom-navbar">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/products/productView}">상품</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/NoticeSelect}">공지사항</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/question/list}">QnA</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/track}">배송조회</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container mt-4">
+			<!-- 옆으로 넘길 수 있는 광고 배너 -->
+			<div id="carouselExampleIndicators" class="carousel slide"
+				data-ride="carousel" data-interval="2000">
+				<ol class="carousel-indicators">
+					<li data-target="#carouselExampleIndicators" data-slide-to="0"
+						class="active"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img class="d-block w-100" src="/img/banner1.jpg"
+							alt="First slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/img/banner2.jpg"
+							alt="Second slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/img/banner3.jpg"
+							alt="Third slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/img/banner4.jpg"
+							alt="Fourth slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/img/banner5.jpg"
+							alt="Fifth slide">
+					</div>
+
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators"
+					role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+					class="sr-only">이전</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+					role="button" data-slide="next"> <span
+					class="carousel-control-next-icon" aria-hidden="true"></span> <span
+					class="sr-only">다음</span>
+				</a>
+			</div>
+			<!-- 추천 상품 섹션 -->
+			<div class="product-recommendation text-center">
+				<h4>추천 상품</h4>
+				<br>
+				<div
+					class="filter-container d-flex justify-content-center align-items-center">
+					<select id="productColor" class="form-control w-25 d-inline">
+						<option value="">선택</option>
+						<option value="Spring">봄 웜</option>
+						<option value="Summer">여름 쿨</option>
+						<option value="Autumn">가을 웜</option>
+						<option value="Winter">겨울 쿨</option>
+
+					</select> <span class="custom-text">톤 에게 잘 어울리는</span> <label
+						for="productCategory" class="ml-3"></label> <select
+						id="productCategory" class="form-control w-25 d-inline">
+						<option value="">선택</option>
+						<option value="Lip">Lip</option>
+						<option value="Face">Face</option>
+						<option value="Eye">Eye</option>
+						<option value="Skincare">Skincare</option>
+					</select> 
+					<span class="custom-text"> 제품을 추천해드릴게요!</span>
+					<button id="filterButton" class="btn btn-primary ml-3" onclick="fetchRecommendedProducts()">찾기</button>
+
+					<div id="recommendedProducts" class="row mt-4">
+						<!-- 추천 상품이 여기에 표시됩니다 -->
+					</div>
+				</div>
+				<br>
+				<br>
+				<div
+					th:replace="product/productView :: productList(showFilter=false)"></div>
+			</div>
+	</main>
+	<footer>
+		<div class="footer-info">
+			<p>(주)FiDeCo</p>
+			<p>주소 서울특별시 구로구 182-13 대룡포스트 2차 2층</p>
+			<p>사업자 번호 123-23-345</p>
+			<p>Copyright © fideco Co., Ltd. All Rights Reserved.</p>
+		</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+	// 퍼스널컬러, 카테고리 필터링
+	function fetchRecommendedProducts() {
+	    var color = document.getElementById("productColor").value;
+	    var category = document.getElementById("productCategory").value;
+	    
+	    if (color && category) {
+	        fetch('/products/recommendedHtml?productColor=' + color + '&productCategory=' + category)
+	            .then(response => response.text())  
+	            .then(html => {
+	                var container = document.getElementById('recommendedProducts');
+	                container.innerHTML = html;  
+	            })
+	            .catch(error => console.error('에러:', error));
+	    } else {
+	        document.getElementById('recommendedProducts').innerHTML = '';  // 선택되지 않았을 경우 비움
+	    }
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>제품 목록</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+	<div th:replace="navbar.html"></div>
+	<!-- fragment -->
+	<div th:fragment="productList">
+		<div class="container mt-4">
+			<br>
+			<h3>제품 목록</h3>
+			<br>
+			<!-- 조건부로 필터링 폼 표시 -->
+			<div th:if="${showFilter}">
+				<form id="filterForm">
+					<label for="productColor">퍼스널 컬러:</label> <select id="productColor"
+						class="form-control w-25 d-inline" onchange="applyFilter()">
+						<option value="">전체</option>
+						<option value="Spring">봄 웜</option>
+						<option value="Summer">여름 쿨</option>
+						<option value="Autumn">가을 웜</option>
+						<option value="Winter">겨울 쿨</option>
+					</select>
+				</form>
+				<br>
+			</div>
+			<div th:fragment="productList">
+				<div class="row" id="productContainer">
+					<div class="col-md-3 mb-4" th:each="product : ${products}"
+						th:attr="data-color=${product.productColor}">
+						<div class="card">
+							<img
+								th:src="@{/img/product/{imagePath}(imagePath=${product.productImagePath})}"
+								class="card-img-top product-image" alt="제품 이미지">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${product.productName}">제품명</h5>
+								<p class="card-text text-danger"
+									th:text="'₩' + ${product.productPrice}">가격</p>
+								<div class="card-body text-center">
+								<a th:href="@{/products/productOrder/{id}(id=${product.productId})}"
+									class="btn btn-primary">상세보기</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<a th:href="@{/products/save}" class="btn btn-success mt-3">새 제품
+					추가</a><br>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+		function applyFilter() {
+			var filterValue = document.getElementById("productColor").value;
+			var productContainer = document.getElementById("productContainer");
+			var productCards = productContainer
+					.getElementsByClassName("col-md-3");
+
+			for (var i = 0; i < productCards.length; i++) {
+				var card = productCards[i];
+				var color = card.getAttribute("data-color");
+				if (filterValue === "" || color === filterValue) {
+					card.style.display = "";
+				} else {
+					card.style.display = "none";
+				}
+			}
+		}
+	</script>
+	<footer>
+		<div class="footer-info">
+			<p>(주)FiDeCo</p>
+			<p>주소 서울특별시 구로구 182-13 대룡포스트 2차 2층</p>
+			<p>사업자 번호 123-23-345</p>
+			<p>Copyright © fideco Co., Ltd. All Rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>

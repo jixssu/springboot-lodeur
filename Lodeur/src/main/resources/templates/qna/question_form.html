@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>질문 등록하기</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+
+</head>
+<body>
+	<div th:replace="~{navbar.html}"></div>
+	<div class="container">
+		<br>
+		<h3>질문 등록하기</h3>
+		<br>
+		<form th:action="@{/question/create}" th:object="${questionForm}"
+			method="post">
+			<div class="alert alert-danger" role="alert"
+				th:if="${#fields.hasAnyErrors()}">
+				<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+			</div>
+			<div class="mb-3">
+				<label for="subject" class="form-label">제목 </label> &nbsp; 
+				<input type="text" th:field="*{subject}" class="form-control">
+			</div>
+			<div class="mb-3">
+				<label for="content" class="form-label">내용</label>
+				<textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+			</div>
+			<input type="submit" value="저장하기" class="btn btn-primary my-2">
+		</form>
+	</div>
+	<footer class="bg-dark text-light py-3">
+		<div class="text-center">
+			<p>(주)FiDeCo</p>
+			<p>주소 서울특별시 구로구 182-13 대룡포스트 2차 2층</p>
+			<p>사업자 번호 123-23-345</p>
+			<p>Copyright © fideco Co, Ltd. All Rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>

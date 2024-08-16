@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제 완료</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min_4.5.0.css}">
+
+<style>
+.payment_success {
+	color: black !important; /* 텍스트 색상을 검정색으로 설정 */
+	text-align: center !important;
+}
+h5 {
+	color: black !important; /* 텍스트 색상을 검정색으로 설정 */
+	text-align: center !important;
+	
+}
+</style>
+</head>
+<body>
+	<div th:replace="navbar.html"></div>
+	<h4>결제 완료</h4>
+		<div class="container mt-4">
+				<div class="payment_success"><br>
+					<h5>결제가 완료되었습니다.</h5>
+					<br> <span>결제 번호 : <span th:text="${merchant_uid}"></span></span><br>
+					<span>주문 번호 : <span th:text="${order_id}"></span></span> <br>
+					<span>가격:<span th:text="${amount}"></span>원</span> <br>
+					<span>결제 상태 : <span th:text="${paymentstatus}"></span></span><br>
+					<span>결제 일자 : <span th:text="${formattedPaymentDate}"></span><br>
+					</span>
+<br><br>
+					<button th:onclick="|location.href='/'|" class="btn btn-home">홈으로</button>
+				</div>
+			</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>새 제품 추가</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+<style>
+
+form {
+    margin-left: 30px !important; /* 입력 필드 간의 간격 조정 */
+    display: block; /* 블록 레벨 요소로 변경하여 줄바꿈 적용 */
+}
+span{
+	color: #000000;
+}
+</style>
+</head>
+<body>
+	<div th:replace="navbar.html"></div>
+    <h2>새 제품 추가</h2>
+    <div class="container mt-4"><br>
+    <form th:action="@{/products}" th:object="${productEntity}" method="post" enctype="multipart/form-data">
+        <label for="productName">제품명: </label>
+        <input type="text" id="productName" th:field="*{productName}" placeholder="제품명을 입력하세요"  required><br><br>
+        
+        <label for="productPrice">가격: &nbsp;&nbsp;</label>
+        <input type="text" id="productPrice" th:field="*{productPrice}" placeholder="가격을 입력하세요" required>&nbsp;<span>원</span><br><br>
+        
+        <label for="productRegisDate">등록일: </label>
+        <input type="date" id="productRegisDate" th:field="*{productRegisdate}" placeholder="등록일을 선택하세요" required><br><br>
+        
+        <label for="productIntro">제품 소개:<br></label><br>
+        <textarea id="productIntro" th:field="*{productIntro}" placeholder="제품 소개를 입력하세요" rows="4" cols="50" required></textarea><br><br>
+        
+        <label for="productImage">제품 이미지: </label>
+        <input type="file" id="productImage" name="imageFile" placeholder="제품 이미지를 선택하세요" required><br><br>
+        
+        <label for="productCategory">제품 카테고리: </label>
+        <select id="productCategory" th:field="*{productCategory}" required>
+            <option value="">카테고리 선택</option>
+            <option value="Lip">Lip</option>
+            <option value="Face">Face</option>
+            <option value="Eye">Eye</option>
+            <option value="Skincare">Skincare</option>
+        </select><br><br>
+        
+        <label for="productColor">추천 퍼스널컬러: </label>
+        <select id="productColor" th:field="*{productColor}" required>
+            <option value="">카테고리 선택</option>
+            <option value="Spring">봄 웜</option>
+            <option value="Summer">여름 쿨</option>
+            <option value="Autumn">가을 웜</option>
+            <option value="Winter">겨울 쿨</option>
+        </select><br><br>
+        
+        <label for="productIngredient">제품 성분:<br></label><br>
+        <textarea id="productIngredient" th:field="*{productIngredient}" placeholder="제품 성분을 입력하세요" rows="3" cols="50" required></textarea><br><br>
+        
+        <button type="submit">저장</button>
+    </form>
+    </div>
+</body>
+</html>

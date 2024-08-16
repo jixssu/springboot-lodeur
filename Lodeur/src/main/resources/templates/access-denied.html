@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden; /* 스크롤 방지 */
+            position: relative;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+        
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 440px;
+            height: 150px;
+            border-radius: 10px;
+            margin: 20px; /* top과 left 대신 margin 사용 */
+            position: relative; /* z-index 적용을 위해 position relative 사용 */
+            z-index: 1; /* 텍스트 컨텐츠가 이미지 위에 오도록 */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-4">
+    <br>
+        <h2>접근 권한이 없습니다.</h2>
+        <br>
+        <a href="/" class="btn btn-primary">홈으로 돌아가기</a>
+    </div>
+</body>
+</html>

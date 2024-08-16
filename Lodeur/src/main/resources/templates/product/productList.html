@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>제품 목록(관리자)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div th:replace="navbar.html"></div>
+    <h3>제품 목록(관리자)</h3>
+    <form id="filterForm">
+        <label for="productCategory">카테고리 필터:</label>
+        <select id="productCategory" class="form-control w-25 d-inline" onchange="applyFilter()">
+            <option value="">전체</option>
+            <option value="Lip">Lip</option>
+            <option value="Face">Face</option>
+            <option value="Eye">Eye</option>
+            <option value="Skincare">Skincare</option>
+        </select>
+      </form>
+    <br>
+    <table id="productTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>제품 ID</th>
+                <th>제품명</th>
+                <th>가격</th>
+                <th>등록일</th>
+                <th>제품 카테고리</th>
+                <th>추천 퍼스널컬러</th>
+                <th>제품 성분</th>
+                <th>작업</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.productId}"></td>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.productPrice}"></td>
+                <td th:text="${product.productRegisdate}"></td>
+                <td th:text="${product.productCategory}"></td>
+                <td th:text="${product.productColor}"></td>
+                <td th:text="${product.productIngredient}"></td>
+                <td>
+                    <a th:href="@{/products/productDetail/{id}(id=${product.productId})}">상세보기</a>
+                    <a th:href="@{/products/update/{id}(id=${product.productId})}">수정</a>
+                    <a th:href="@{/products/delete/{id}(id=${product.productId})}">삭제</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/products/save}" class="btn btn-success">새 제품 추가</a>
+    <script>
+        function applyFilter() {
+            var filterValue = document.getElementById("productCategory").value;
+            var table = document.getElementById("productTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    var category = td.textContent || td.innerText;
+                    if (filterValue === "" || category.includes(filterValue)) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

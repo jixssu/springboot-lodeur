@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .btn-group-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .btn-group-vertical .btn {
+            margin: 5px 0;
+            width: 200px; /* 버튼 너비 조정 */
+        }
+    </style>
+</head>
+<body>
+    <div th:insert="~{navbar.html}"></div>
+    <div class="container mt-4">
+        <h2 class="text-center">관리자 페이지</h2>
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href="/member/memberList">회원 목록</a>
+            <a class="btn btn-primary" href="/products/save">상품 등록</a>
+            <a class="btn btn-primary" href="/products/productList">상품 목록</a>
+            <a class="btn btn-primary" href="/NoticeSelect">게시판</a>
+            <a class="btn btn-primary" href="/cart/list">장바구니 목록</a>
+            <a class="btn btn-primary" href="/orders">주문 목록</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

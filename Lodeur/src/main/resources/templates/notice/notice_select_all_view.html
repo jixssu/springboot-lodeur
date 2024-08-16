@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min_4.5.0.css}">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+.container2 {
+    position: relative;
+    margin-right: 40%;
+}
+.table-hover tbody tr td:nth-child(2) a {
+    color: black;
+    text-decoration: none; 
+}
+
+.table-hover tbody tr td:nth-child(2) a:hover {
+    color: black; 
+    text-decoration: underline; 
+}
+</style>
+
+</head>
+<body>
+	<div th:replace="navbar.html"></div>
+	<h2>공지사항</h2>
+	
+		<div class="container2">
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<form th:action="@{/NoticeSearch}" method="get"	class="form-inline my-2 my-lg-0 float-right">
+						<input class="form-control mr-sm-2" type="search" name="keyword" placeholder="검색" aria-label="검색">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	<br>
+	
+	<section id="details">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card3">
+						
+						<div class="card-body">
+							<table class="table table-hover">
+								<thead class="thead-light">
+									<tr class="text-center">
+										<th>No.</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>조회수</th>
+
+									</tr>
+								</thead>
+								<tbody>
+								
+									<!-- 객체를 호출하고 파라미터에 저장하여 반복한다. -->
+									<tr class="text-center" th:each="list : ${list}">
+										<td th:text="${list.notice_num}"></td>
+										<td><a
+											th:href="@{/NoticeSelectDetail(notice_num=${list.notice_num})}"
+											th:text="${list.notice_title}"></a></td>
+										<td th:text="${list.notice_writer}"></td>
+										<td th:text="${list.notice_hit}"></td>
+									</tr>
+									<tr th:if="${#lists.isEmpty(list)}">
+										<td colspan="4">등록된 공지사항이 없습니다.</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="d-flex justify-content-end">
+							<a th:href="@{/NoticeInsert}" class="btn btn-success btn-sm" >글쓰기 </a>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<br><br>
+	</section>
+	<footer>
+		<div class="footer-info">
+			<p>(주)FiDeCo</p>
+			<p>주소 서울특별시 구로구 182-13 대룡포스트 2차 2층</p>
+			<p>사업자 번호 123-23-345</p>
+			<p>Copyright © fideco Co., Ltd. All Rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() { // 각 행을 클릭하면 상세페이지로 넘어가도록 함.
+						$("tbody tr")
+								.click(
+										function() {
+											var noticeNum = $(this).find(
+													"td:first").text(); //해당 행의 공지사항 번호 가져오기
+											var detailurl = /*[[${'/NoticeSelectDetail?notice_num=' + noticeNum}]]*/"./NoticeSelectDetail?notice_num="
+													+ noticeNum; // 상세 페이지 URL 생성
+											window.location.href = detailurl; //페이지 이동
+										});
+					});
+</script>
+</html>

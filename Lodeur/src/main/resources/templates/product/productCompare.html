@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>제품 비교하기</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+	.card-img-top {
+		width: 400px;
+		height: 400px;
+		object-fit: cover;
+	}
+	
+</style>
+</head>
+<body>
+	<div th:replace="navbar.html"></div>
+	<div class="container mt-4"><br>
+		<h2>제품 비교</h2><br>
+		<div class="row">
+			<!-- 첫 번째 제품 비교 영역 -->
+			<div class="col-md-6">
+				<div class="card">
+					<div th:if="${product1 != null}">
+						<img
+							th:src="@{/img/product/{imagePath}(imagePath=${product1.productImagePath})}"
+							class="card-img-top" alt="제품 이미지">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${product1.productName}">제품명</h5>
+							<p class="card-text" th:text="'가격 : '+ ${product1.productPrice}+'원'">가격</p>
+							<p class="card-text" th:text="'제품 설명 : '+${product1.productIntro}">제품 소개</p>
+							<p class="card-text" th:text="'카테고리 : '+${product1.productCategory}">카테고리</p>
+							<p class="card-text" th:text="'추천 퍼스널컬러 : '+${product1.productColor}">추천 퍼스널 컬러</p>
+							<p class="card-text" th:text="'제품 성분 : '+${product1.productIngredient}">제품 성분</p>
+						</div>
+					</div>
+					<div th:if="${product1 == null}">
+						<div class="card-body text-center">
+							<a href="/products/productView" class="btn btn-primary">제품 추가하기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 두 번째 제품 비교 영역 -->
+			<div class="col-md-6">
+				<div class="card">
+					<div th:if="${product2 != null}">
+						<img
+							th:src="@{/img/product/{imagePath}(imagePath=${product2.productImagePath})}"
+							class="card-img-top" alt="제품 이미지">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${product2.productName}">제품명</h5>
+							<p class="card-text" th:text="'가격 : '+ ${product2.productPrice}+'원'">가격</p>
+							<p class="card-text" th:text="'제품 설명 : '+${product2.productIntro}">제품 소개</p>
+							<p class="card-text" th:text="'카테고리 : '+${product2.productCategory}">카테고리</p>
+							<p class="card-text" th:text="'추천 퍼스널컬러 : '+${product2.productColor}">추천 퍼스널 컬러</p>
+							<p class="card-text" th:text="'제품 성분 : '+${product2.productIngredient}">제품 성분</p>
+								
+						</div>
+					</div>
+					<div th:if="${product2 == null}">
+						<div class="card-body text-center">
+							<a href="/products/productView" class="btn btn-primary">제품
+								추가하기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+<br><br>
+			<div class="col-12 text-center mt-4">
+				<a href="/products/compare/reset" class="btn btn-danger">비교 초기화하기</a>
+			</div>
+			<br><br><br><br>
+		</div>
+	</div>
+</body>
+<footer>
+		<div class="footer-info">
+			<p>(주)FiDeCo</p>
+			<p>주소 서울특별시 구로구 182-13 대룡포스트 2차 2층</p>
+			<p>사업자 번호 123-23-345</p>
+			<p>Copyright © fideco Co., Ltd. All Rights Reserved.</p>
+		</div>
+	</footer>
+</html>
